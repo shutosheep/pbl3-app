@@ -5,10 +5,10 @@ import pandas as pd
 
 # read database data with pandas
 connection = sqlite3.connect("data.db")
-df = pd.read_sql('SELECT * FROM vendingmachine', connection)
+v_df = pd.read_sql('SELECT * FROM vendingmachine', connection)
+m_df = pd.read_sql('SELECT * FROM menu', connection)
 
 # https://zenn.dev/straydog/articles/5ba6d234c7e72f886a5e
-
 app = Flask(__name__)
 CORS(
     app,
@@ -19,15 +19,31 @@ CORS(
 def get():
     data = []
 
-    for i in df.index:
-        location = [float(df.latitude[i]), float(df.longtitude[i])]
+    for i in v_df.index:
+        location = [float(v_df.latitude[i]), float(v_df.longtitude[i])]
         vending_machine = {
-            "id": int(df.id[i]),
+            "id": int(v_df.id[i]),
             "location": location,
-            "cacheless_avilable": int(df.is_cacheless[i]),
+            "cacheless_avilable": int(v_df.is_cacheless[i]),
         }
 
         data.append(vending_machine)
+
+    return jsonify(data)
+
+@app.route("/menu", methods=["GET"])
+def get_menu():
+    id = request.args.get("id")
+    data = []
+
+    for i in m_df.index:
+        if int(m_df.id[i]) == int(id):
+            menu = {
+                "name": str(m_df.name[i]),
+                "price": int(m_df.price[i]),
+            }
+
+            data.append(menu)
 
     return jsonify(data)
 
