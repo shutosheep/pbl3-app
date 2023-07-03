@@ -6,11 +6,14 @@
         layer-type="base"
         name="OpenStreetMap"
       />
-      <l-marker :lat-lng="center" />
-      <l-marker v-for='i in vendingmachine' :lat-lng="i.location" ></l-marker>
+      <l-marker v-for='i in vendingmachine' @click="clickMarker(i.id)" :lat-lng="i.location" ></l-marker>
     </l-map>
   </div>
-  {{ vendingmachine }}
+  <div>
+    {{ vendingmachine }}
+    <br>
+    {{ menu }}
+  </div>
 </template>
 
 <script>
@@ -29,6 +32,7 @@ export default {
       zoom: 15,
       center: [34.982155233542514, 135.9635035902881], // university
       vendingmachine: [],
+      menu: [],
     };
   },
   mounted() {
@@ -36,7 +40,16 @@ export default {
       .get("http://127.0.0.1:5000/")
       .then((response) => (this.vendingmachine = response.data))
       .catch(error => console.log(error))
-  }
+  },
+  methods: {
+    clickMarker(id) {
+      console.log("clicked! " + id)
+      axios
+        .get("http://127.0.0.1:5000/menu?id=" + id)
+        .then((response) => (this.menu = response.data))
+        .catch(error => console.log(error))
+    }
+  },
 };
 </script>
 
