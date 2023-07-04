@@ -24,7 +24,6 @@ def get():
         vending_machine = {
             "id": int(v_df.id[i]),
             "location": location,
-            "cacheless_avilable": int(v_df.is_cacheless[i]),
         }
 
         data.append(vending_machine)
@@ -58,6 +57,47 @@ def get_location():
                 "location": [float(v_df.latitude[i]), float(v_df.longtitude[i])],
             }
             data.append(location)
+
+    return jsonify(data)
+
+@app.route("/filter", methods=["GET"])
+def get_filter():
+    filter_type = request.args.get("filter_type")
+    filter_value = request.args.get("filter_value") # optional, mandatory for filter_type is name or price
+    data = []
+
+    if filter_type == "name":
+        for i in m_df.index:
+            j = m_df.id[i]
+            if str(m_df.name[i]) == str(filter_value):
+                location = [float(v_df.latitude[j - 1]), float(v_df.longtitude[j - 1])]
+                vending_machine = {
+                    "id": int(j),
+                    "location": location,
+                }
+
+                data.append(vending_machine)
+    elif filter_type == "ict":
+        for i in v_df.index:
+            if int(v_df.is_cacheless[i]) == int(1):
+                location = [float(v_df.latitude[i]), float(v_df.longtitude[i])]
+                vending_machine = {
+                    "id": int(v_df.id[i]),
+                    "location": location,
+                }
+
+                data.append(vending_machine)
+    elif filter_type == "price":
+        for i in m_df.index:
+            j = m_df.id[i]
+            if int(m_df.price[i]) <= int(filter_value):
+                location = [float(v_df.latitude[j - 1]), float(v_df.longtitude[j - 1])]
+                vending_machine = {
+                    "id": int(j),
+                    "location": location,
+                }
+
+                data.append(vending_machine)
 
     return jsonify(data)
 
