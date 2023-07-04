@@ -47,5 +47,19 @@ def get_menu():
 
     return jsonify(data)
 
+@app.route("/location", methods=["GET"])
+def get_location():
+    id = request.args.get("id")
+    data = []
+
+    for i in v_df.index:
+        if int(v_df.id[i]) == int(id):
+            location = {
+                "location": [float(v_df.latitude[i]), float(v_df.longtitude[i])],
+            }
+            data.append(location)
+
+    return jsonify(data)
+
 if __name__ == "__main__":
     app.run()
