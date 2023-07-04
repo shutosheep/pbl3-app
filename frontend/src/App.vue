@@ -7,7 +7,13 @@
           layer-type="base"
           name="OpenStreetMap"
         />
-        <l-marker v-for='i in vendingmachine' @click="clickMarker(i.id)" :lat-lng="i.location" ></l-marker>
+        <l-marker v-for='i in vendingmachine' @click="clickMarker(i.id)" :lat-lng="i.location">
+          <l-popup>
+            You clicked this!
+            <br>
+            {{ location[0].location }}
+          </l-popup>
+        </l-marker>
       </l-map>
     </div>
     <div class="right">
@@ -19,7 +25,7 @@
 <script>
 import "./style/global.scss";
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
+import { LMap, LTileLayer, LMarker, LPopup } from "@vue-leaflet/vue-leaflet";
 import axios from 'axios';
 import VendingInfo from './components/VendingInfo.vue';
 
@@ -28,6 +34,7 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
+    LPopup,
     VendingInfo,
   },
   data() {
