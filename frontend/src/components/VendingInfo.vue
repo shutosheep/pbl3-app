@@ -1,8 +1,7 @@
 <template>
-  <h2>Vending machine Info</h2>
   <div v-if="menu">
     <div class="menu">
-      <h3>Menu</h3>
+      <h2>Menu</h2>
       <table>
         <thead>
           <tr>
@@ -25,7 +24,6 @@
 export default {
   props: {
     menu: { },
-    location: { },
   },
 }
 </script>

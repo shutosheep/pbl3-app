@@ -11,13 +11,35 @@
           <l-popup>
             You clicked this!
             <br>
-            {{ location[0].location }}
+            {{ i.location }}
           </l-popup>
         </l-marker>
       </l-map>
     </div>
     <div class="right">
-      <VendingInfo :menu=menu :location=location />
+      <h1>Vendeye</h1>
+      <div>
+        <h2>Filter by...</h2>
+        <p>
+        Filter type:
+        <select v-model="filterType">
+          <option v-for="i in filterTypeOptions">
+            {{ i }}
+          </option>
+        </select>
+        </p>
+        <p v-if="filterType != filterTypeOptions[2]">
+        Filter value:
+        <input type="text" v-model="filterValue" />
+        </p>
+        <button @click="clickResetFilter()">
+          Reset filter!
+        </button>
+        <button @click="clickFilter(filterType, filterValue)">
+          Filter!
+        </button>
+      </div>
+      <VendingInfo :menu=menu />
     </div>
   </div>
 </template>
@@ -43,7 +65,9 @@ export default {
       center: [34.982155233542514, 135.9635035902881], // university
       vendingmachine: null,
       menu: null,
-      location: null,
+      filterType: null,
+      filterTypeOptions: ["Name", "Price", "Cacheless payment avilable"],
+      filterValue: null,
     };
   },
   mounted() {
@@ -63,7 +87,26 @@ export default {
         .get("http://127.0.0.1:5000/location?id=" + id)
         .then((response) => (this.location = response.data))
         .catch(error => console.log(error))
-    }
+    },
+    clickResetFilter() {
+      axios
+        .get("http://127.0.0.1:5000/")
+        .then((response) => (this.vendingmachine = response.data))
+        .catch(error => console.log(error))
+    },
+    clickFilter(filterType, filterValue) {
+      if (filterType == null) {
+        alert("Please choose filter type!")
+        return
+      }
+
+      if (filterType == this.filterTypeOptions[0]) {
+        axios
+          .get("http://127.0.0.1:5000/filter?filter_type=name" + "&filter_value=" + filterValue)
+          .then((response) => (this.vendingmachine = response.data))
+          .catch(error => console.log(error))
+      }
+    },
   },
 };
 </script>
