@@ -20,38 +20,53 @@
           <l-popup>
             You clicked this!
             <br />
+            id = {{ i.id }}
+            <br />
             {{ i.location }}
           </l-popup>
         </l-marker>
       </l-map>
     </div>
-    <div class="right">
+    <div class="m-left-1">
       <h1>Vendeye</h1>
-      <div>
-        <h2>Filter by...</h2>
-        <p>
-          Filter type:
-          <select v-model="filterType">
-            <option v-for="i in filterTypeOptions">
-              {{ i }}
-            </option>
-          </select>
-        </p>
-        <p v-if="filterType != filterTypeOptions[2]">
-          Filter value:
-          <input type="text" v-model="filterValue" />
-        </p>
-        <button @click="clickResetFilter()">Reset filter!</button>
-        <button @click="clickFilter(filterType, filterValue)">Filter!</button>
+      <div class="flex gap-1">
+        <div>
+          <h2>Filter by...</h2>
+          <p>
+            Filter type:
+            <select v-model="filterType" @change="changeFilterType($event)">
+              <option v-for="i in filterTypeOptions">
+                {{ i }}
+              </option>
+            </select>
+          </p>
+          <p>
+            Filter value:
+            <input type="text" v-model="filterValue" />
+          </p>
+          <p class="flex gap-half">
+            <button @click="clickFilter(filterType, filterValue)">
+              Filter!
+            </button>
+            <button @click="clickResetFilter()">Reset filter!</button>
+          </p>
+        </div>
+        <VendingInfo
+          :menu="menu"
+          :filterType="filterType"
+          :filterTypeOptions="filterTypeOptions"
+          :filterValue="filterValue"
+        />
       </div>
-      <VendingInfo
-        :menu="menu"
-        :filterType="filterType"
-        :filterTypeOptions="filterTypeOptions"
-        :filterValue="filterValue"
-      />
     </div>
   </div>
+  <footer>
+    <p>
+      <small
+        ><a href="https://github.com/shutosheep/pbl3-app">Source code</a></small
+      >
+    </p>
+  </footer>
 </template>
 
 <script>
@@ -71,8 +86,8 @@ export default {
   },
   data() {
     return {
-      zoom: 15,
-      center: [34.982155233542514, 135.9635035902881], // university
+      zoom: 14,
+      center: [34.99126, 135.957415],
       vendingmachine: null,
       menu: null,
       filterType: null,
@@ -113,6 +128,11 @@ export default {
         return;
       }
 
+      if (filterType != this.filterTypeOptions[2] && filterValue == null) {
+        alert("Please type filter value!");
+        return;
+      }
+
       if (filterType == this.filterTypeOptions[0]) {
         axios
           .get(
@@ -148,11 +168,19 @@ export default {
 }
 
 .map {
-  width: 1024px;
-  height: 720px;
+  width: 1000px;
+  height: 800px;
 }
 
-.right {
+.m-left-1 {
   margin-left: 1rem;
+}
+
+.gap-half {
+  gap: 0.5rem;
+}
+
+.gap-1 {
+  gap: 1rem;
 }
 </style>

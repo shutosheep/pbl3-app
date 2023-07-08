@@ -15,7 +15,9 @@
               <span
                 class="red"
                 v-if="
-                  filterType == filterTypeOptions[0] && filterValue == i.name
+                  (filterType == filterTypeOptions[0] &&
+                    filterValue == i.name) ||
+                  (filterType == filterTypeOptions[1] && filterValue >= i.price)
                 "
               >
                 {{ i.name }}
@@ -28,7 +30,9 @@
               <span
                 class="red"
                 v-if="
-                  filterType == filterTypeOptions[1] && filterValue >= i.price
+                  (filterType == filterTypeOptions[0] &&
+                    filterValue == i.name) ||
+                  (filterType == filterTypeOptions[1] && filterValue >= i.price)
                 "
               >
                 {{ i.price }}
