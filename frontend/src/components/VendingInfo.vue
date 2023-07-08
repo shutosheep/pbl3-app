@@ -23,10 +23,9 @@
 <script>
 export default {
   props: {
-    menu: { },
+    menu: {},
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

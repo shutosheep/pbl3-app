@@ -1,16 +1,25 @@
 <template>
   <div class="flex">
     <div class="map">
-      <l-map ref="map" v-model:zoom="zoom" :use-global-leaflet="false" :center="center">
+      <l-map
+        ref="map"
+        v-model:zoom="zoom"
+        :use-global-leaflet="false"
+        :center="center"
+      >
         <l-tile-layer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           layer-type="base"
           name="OpenStreetMap"
         />
-        <l-marker v-for='i in vendingmachine' @click="clickMarker(i.id)" :lat-lng="i.location">
+        <l-marker
+          v-for="i in vendingmachine"
+          @click="clickMarker(i.id)"
+          :lat-lng="i.location"
+        >
           <l-popup>
             You clicked this!
-            <br>
+            <br />
             {{ i.location }}
           </l-popup>
         </l-marker>
@@ -21,25 +30,21 @@
       <div>
         <h2>Filter by...</h2>
         <p>
-        Filter type:
-        <select v-model="filterType">
-          <option v-for="i in filterTypeOptions">
-            {{ i }}
-          </option>
-        </select>
+          Filter type:
+          <select v-model="filterType">
+            <option v-for="i in filterTypeOptions">
+              {{ i }}
+            </option>
+          </select>
         </p>
         <p v-if="filterType != filterTypeOptions[2]">
-        Filter value:
-        <input type="text" v-model="filterValue" />
+          Filter value:
+          <input type="text" v-model="filterValue" />
         </p>
-        <button @click="clickResetFilter()">
-          Reset filter!
-        </button>
-        <button @click="clickFilter(filterType, filterValue)">
-          Filter!
-        </button>
+        <button @click="clickResetFilter()">Reset filter!</button>
+        <button @click="clickFilter(filterType, filterValue)">Filter!</button>
       </div>
-      <VendingInfo :menu=menu />
+      <VendingInfo :menu="menu" />
     </div>
   </div>
 </template>
@@ -48,8 +53,8 @@
 import "./style/global.scss";
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LPopup } from "@vue-leaflet/vue-leaflet";
-import axios from 'axios';
-import VendingInfo from './components/VendingInfo.vue';
+import axios from "axios";
+import VendingInfo from "./components/VendingInfo.vue";
 
 export default {
   components: {
@@ -74,37 +79,41 @@ export default {
     axios
       .get("http://127.0.0.1:5000/")
       .then((response) => (this.vendingmachine = response.data))
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error));
   },
   methods: {
     clickMarker(id) {
-      console.log("clicked! " + id)
+      console.log("clicked! " + id);
       axios
         .get("http://127.0.0.1:5000/menu?id=" + id)
         .then((response) => (this.menu = response.data))
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error));
       axios
         .get("http://127.0.0.1:5000/location?id=" + id)
         .then((response) => (this.location = response.data))
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error));
     },
     clickResetFilter() {
       axios
         .get("http://127.0.0.1:5000/")
         .then((response) => (this.vendingmachine = response.data))
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error));
     },
     clickFilter(filterType, filterValue) {
       if (filterType == null) {
-        alert("Please choose filter type!")
-        return
+        alert("Please choose filter type!");
+        return;
       }
 
       if (filterType == this.filterTypeOptions[0]) {
         axios
-          .get("http://127.0.0.1:5000/filter?filter_type=name" + "&filter_value=" + filterValue)
+          .get(
+            "http://127.0.0.1:5000/filter?filter_type=name" +
+              "&filter_value=" +
+              filterValue,
+          )
           .then((response) => (this.vendingmachine = response.data))
-          .catch(error => console.log(error))
+          .catch((error) => console.log(error));
       }
     },
   },
