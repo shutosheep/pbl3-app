@@ -14,7 +14,7 @@
         />
         <l-marker
           v-for="i in vendingmachine"
-          @click="clickMarker(i.id)"
+          v-on:click="clickMarker(vendingmachine, i.id, filterType)"
           :lat-lng="i.location"
         >
           <l-popup>
@@ -82,15 +82,16 @@ export default {
       .catch((error) => console.log(error));
   },
   methods: {
-    clickMarker(id) {
-      console.log("clicked! " + id);
+    clickMarker(vendingmachine, id, filterType) {
+      if (filterType !== null) {
+        id = vendingmachine[id - 1]["id"];
+      }
+
+      console.log("id = " + id);
+
       axios
         .get("http://127.0.0.1:5000/menu?id=" + id)
         .then((response) => (this.menu = response.data))
-        .catch((error) => console.log(error));
-      axios
-        .get("http://127.0.0.1:5000/location?id=" + id)
-        .then((response) => (this.location = response.data))
         .catch((error) => console.log(error));
     },
     clickResetFilter() {
