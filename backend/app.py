@@ -88,9 +88,11 @@ def get_filter():
 
                 data.append(vending_machine)
     elif filter_type == "price":
+        added_list = []
+
         for i in m_df.index:
             j = m_df.id[i]
-            if int(m_df.price[i]) <= int(filter_value):
+            if int(m_df.price[i]) <= int(filter_value) and j not in added_list:
                 location = [float(v_df.latitude[j - 1]), float(v_df.longtitude[j - 1])]
                 vending_machine = {
                     "id": int(j),
@@ -98,6 +100,7 @@ def get_filter():
                 }
 
                 data.append(vending_machine)
+                added_list.append(int(j))
 
     return jsonify(data)
 
