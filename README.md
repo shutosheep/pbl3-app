@@ -1,5 +1,11 @@
 # pbl3-app
 
+This is the source code of group I's demo application.
+
+Here is a screenshot of the app.
+
+[!screenshot](screenshot.png)
+
 ## Setup
 
 ### Git clone this repo
