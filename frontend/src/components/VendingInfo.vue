@@ -11,8 +11,32 @@
         </thead>
         <tbody>
           <tr v-for="i in menu">
-            <td>{{ i.name }}</td>
-            <td>{{ i.price }}</td>
+            <td>
+              <span
+                class="red"
+                v-if="
+                  filterType == filterTypeOptions[0] && filterValue == i.name
+                "
+              >
+                {{ i.name }}
+              </span>
+              <span v-else>
+                {{ i.name }}
+              </span>
+            </td>
+            <td>
+              <span
+                class="red"
+                v-if="
+                  filterType == filterTypeOptions[1] && filterValue >= i.price
+                "
+              >
+                {{ i.price }}
+              </span>
+              <span v-else>
+                {{ i.price }}
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -24,8 +48,15 @@
 export default {
   props: {
     menu: {},
+    filterType: {},
+    filterTypeOptions: {},
+    filterValue: {},
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.red {
+  color: red;
+}
+</style>

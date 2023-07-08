@@ -44,7 +44,12 @@
         <button @click="clickResetFilter()">Reset filter!</button>
         <button @click="clickFilter(filterType, filterValue)">Filter!</button>
       </div>
-      <VendingInfo :menu="menu" />
+      <VendingInfo
+        :menu="menu"
+        :filterType="filterType"
+        :filterTypeOptions="filterTypeOptions"
+        :filterValue="filterValue"
+      />
     </div>
   </div>
 </template>
@@ -71,7 +76,7 @@ export default {
       vendingmachine: null,
       menu: null,
       filterType: null,
-      filterTypeOptions: ["Name", "Price", "Cacheless payment avilable"],
+      filterTypeOptions: ["Name", "Price", "Cacheless payment is avilable"],
       filterValue: null,
     };
   },
@@ -83,6 +88,7 @@ export default {
   },
   methods: {
     clickMarker(vendingmachine, id, filterType) {
+      // i dont know why i have to do this to fix some weird error
       if (filterType !== null) {
         id = vendingmachine[id - 1]["id"];
       }
@@ -99,6 +105,7 @@ export default {
         .get("http://127.0.0.1:5000/")
         .then((response) => (this.vendingmachine = response.data))
         .catch((error) => console.log(error));
+      this.menu = null;
     },
     clickFilter(filterType, filterValue) {
       if (filterType == null) {
@@ -113,6 +120,20 @@ export default {
               "&filter_value=" +
               filterValue,
           )
+          .then((response) => (this.vendingmachine = response.data))
+          .catch((error) => console.log(error));
+      } else if (filterType == this.filterTypeOptions[1]) {
+        axios
+          .get(
+            "http://127.0.0.1:5000/filter?filter_type=price" +
+              "&filter_value=" +
+              filterValue,
+          )
+          .then((response) => (this.vendingmachine = response.data))
+          .catch((error) => console.log(error));
+      } else if (filterType == this.filterTypeOptions[2]) {
+        axios
+          .get("http://127.0.0.1:5000/filter?filter_type=ict")
           .then((response) => (this.vendingmachine = response.data))
           .catch((error) => console.log(error));
       }
