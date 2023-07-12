@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="d-flex">
     <div class="map">
       <l-map
         ref="map"
@@ -27,31 +27,31 @@
         </l-marker>
       </l-map>
     </div>
-    <div class="m-left-1">
-      <h1>Vendeye</h1>
-      <div class="flex gap-1">
+    <div class="ml-4">
+      <h1 class="text-h2 my-3">Vendeye</h1>
+      <div class="d-flex">
         <div>
-          <h2>Filter by...</h2>
+          <h2 class="text-h4 my-3">Filter by...</h2>
           <p>
-            Filter type:
-            <select v-model="filterType" @change="changeFilterType($event)">
-              <option v-for="i in filterTypeOptions">
-                {{ i }}
-              </option>
-            </select>
+            <v-select
+              label="Filter type"
+              :items="filterTypeOptions"
+              v-model="filterType"
+              @change="changeFilterType($event)"
+            />
           </p>
           <p>
-            Filter value:
-            <input type="text" v-model="filterValue" />
+            <v-text-field label="Filter value" v-model="filterValue" />
           </p>
-          <p class="flex gap-half">
-            <button @click="clickFilter(filterType, filterValue)">
-              Filter!
-            </button>
-            <button @click="clickResetFilter()">Reset filter!</button>
+          <p class="d-flex">
+            <v-btn @click="clickFilter(filterType, filterValue)">
+              Filter
+            </v-btn>
+            <v-btn @click="clickResetFilter()">Clear filter</v-btn>
           </p>
         </div>
         <VendingInfo
+          class="ml-4"
           :menu="menu"
           :filterType="filterType"
           :filterTypeOptions="filterTypeOptions"
@@ -60,13 +60,6 @@
       </div>
     </div>
   </div>
-  <footer>
-    <p>
-      <small
-        ><a href="https://github.com/shutosheep/pbl3-app">Source code</a></small
-      >
-    </p>
-  </footer>
 </template>
 
 <script>
@@ -170,10 +163,6 @@ export default {
 .map {
   width: 1000px;
   height: 800px;
-}
-
-.m-left-1 {
-  margin-left: 1rem;
 }
 
 .gap-half {

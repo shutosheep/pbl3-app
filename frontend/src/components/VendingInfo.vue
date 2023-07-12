@@ -1,8 +1,8 @@
 <template>
   <div v-if="menu">
     <div class="menu">
-      <h2>Menu</h2>
-      <table>
+      <h2 class="text-h4 my-3">Menu</h2>
+      <v-table density="compact">
         <thead>
           <tr>
             <th>Name</th>
@@ -43,7 +43,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </v-table>
     </div>
   </div>
 </template>
