@@ -1,0 +1,326 @@
+<template>
+    <div>
+      <header>
+        <div class="navbar">
+          <div class="logo"><a href="#">VendEye</a></div>
+          <ul class="links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="beginners.html">For Beginners</a></li>
+            <li><a href="index.html">Search</a></li>
+            <li><a href="roulette.html">Roulette</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+          <a href="profile.html" class="action_btn">Profile</a>
+          <div class="toggle_btn" @click="toggleMenu">
+            <i :class="toggleIcon"></i>
+          </div>
+        </div>
+  
+        <div class="dropdown_menu" :class="{ open: isMenuOpen }">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="beginners.html">For Beginners</a></li>
+          <li><a href="index.html">Search</a></li>
+          <li><a href="roulette.html">Roulette</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="profile.html" class="action_btn">Profile</a></li>
+        </div>
+      </header>
+  
+      <main>
+        <section id="hero">
+          <h1>
+            Welcome to VendEye!
+          </h1>
+          <h2>
+            ~One Tap, Endless Convenience~ <br/>
+          </h2>
+        </section>
+      </main>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        isMenuOpen: false
+      }
+    },
+    computed: {
+      toggleIcon() {
+        return this.isMenuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+      }
+    },
+    methods: {
+      toggleMenu() {
+        this.isMenuOpen = !this.isMenuOpen;
+      }
+    }
+  }
+  </script>
+  
+  <style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body{
+    height: 100vh;
+   background-image: url("transparant.jpg"); 
+   background-size: cover;
+   background-position: center;
+}
+
+li{
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+a:hover {
+    color: orange;
+}
+
+header{
+    position: relative;
+    padding: 02rem;
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .links{
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar .toggle_btn {
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+.action_btn{
+    background-color: orange;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2 ease;
+}
+
+.action_btn:hover {
+    scale: 1.05;
+    color: #fff;
+}
+
+.action_btn:active {
+    scale: 0.95;
+}
+
+.dropdown_menu{
+    display: none;
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    height: 0;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dropdown_menu.open{
+    height: 280px;
+}
+
+.dropdown_menu li{
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.dropdown_menu .action_btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+section#hero{
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+
+#hero h1{
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+#hero h2{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+    .navbar .links,
+    .navbar .action_btn{
+        display: none;
+    }
+
+    .navbar .toggle_btn{
+        display: block;
+    }
+
+    .dropdown_menu{
+        display: block;
+    }
+}
+
+@media (max-width: 576px){
+    .dropdown_menu{
+        left: 2rem;
+        width: unset;
+    }
+}
+
+
+
+
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #030303;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.profile-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.profile-info {
+  margin-bottom: 20px;
+}
+
+.profile-details p {
+  margin-bottom: 5px;
+}
+
+.fa-solid {
+  margin-right: 5px;
+}
+
+/* Style inputs with type="text", select elements and textareas */
+input[type=text], select, textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical 
+  }
+
+  input[type=email], select, textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical 
+  }
+  
+  
+  button[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  
+  .container {
+    width: 600px;
+    height: 560px;
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: center;
+    padding: 20px;
+    margin: auto;
+  }
+
+  .form{
+    display: flex;
+    flex-direction: column;
+    padding: 2vw 4vw;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+  }
+
+.roulette{
+    background-color: #010101;
+    height: 560px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+  
+  /* Add your CSS styles here */
+  </style>
+  

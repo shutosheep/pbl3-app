@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+  </head>
+  <body>
+    <header>
+      <div class=" navbar">
+        <div class="logo"><a href="#">VendEye</a></div>
+        <ul class="links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="beginners.html">For Beginners</a></li>
+          <li><a href="index.html">Search</a></li>
+          <li><a href="roulette.html">Roulette</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+        <a href="profile.html" class="action_btn">Profile</a>
+        <div class="toggle_btn">
+        <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+
+      <div class="dropdown_menu">
+        <li><a href="home.html">Home</a></li>
+          <li><a href="beginners.html">For Beginners </a></li>
+          <li><a href="index.html">Search</a></li>
+          <li><a href="roulette.html">Roulette</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="profile.html" class="action_btn">Profile</a></li>
+      </div>
+    </header>
+    
+      <div class= "container" >
+        <form action="https://formsubmit.co/manakokko25@gmail.com" method="POST">
+      
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="firstname" placeholder="Your first name.." required>
+      
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lastname" placeholder="Your last name.." required>
+
+          <label for="email">Your Email Adress</label>
+          <input type="email" id="email" name="email" placeholder="Your Email adress.." required>
+      
+          <label for="subject">Subject</label>
+          <textarea id="subject" name="subject" placeholder="How can we help you?" style="height:200px"></textarea>
+      
+          <Button type="submit">Send</Button>
+      
+        </form>
+      </div>
+
+      <script>
+        const toggleBtn = document.querySelector('.toggle_btn')
+        const toggleBtnIcon = document.querySelector('.toggle_btn i')
+        const dropDownMenu = document.querySelector('.dropdown_menu')
+  
+        toggleBtn.onclick = function () {
+          dropDownMenu.classList.toggle('open')
+          const isOpen = dropDownMenu.classList.contains('open')
+  
+          toggleBtnIcon.classList = isOpen
+          ? 'fa-solid fa-xmark'
+          : 'fa-solid fa-bars'
+        }
+      </script>
+  </body>
+</html>
