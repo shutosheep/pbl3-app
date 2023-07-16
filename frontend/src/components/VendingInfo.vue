@@ -1,7 +1,7 @@
 <template>
   <div v-if="menu">
     <div class="menu">
-      <h2 class="text-h4 my-3">Menu</h2>
+      <h2 class="text-h4 my-5">Menu</h2>
       <v-table density="compact">
         <thead>
           <tr>
@@ -13,7 +13,7 @@
           <tr v-for="i in menu">
             <td>
               <span
-                class="red"
+                class="text-red"
                 v-if="
                   (filterType == filterTypeOptions[0] &&
                     filterValue == i.name) ||
@@ -28,7 +28,7 @@
             </td>
             <td>
               <span
-                class="red"
+                class="text-red"
                 v-if="
                   (filterType == filterTypeOptions[0] &&
                     filterValue == i.name) ||
@@ -58,9 +58,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.red {
-  color: red;
-}
-</style>
