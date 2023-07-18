@@ -4,16 +4,23 @@
     <v-row align-content="center">
       <v-col>
         <h1 class="text-h3 font-weight-medium my-6">Info</h1>
-        <h2 class="text-h4 font-weight-medium my-4">Getting started</h2>
-        <p class="my-2 text-body-1">
-          Are you the first time to use this app? Here are some steps you want
-          to follow.
-          <br />
-          For general information on our project, please take a look at our
-          <a href="http://shutosheep.github.io/pbl3-website"
-            >project website.</a
-          >
-        </p>
+        <div class="d-flex">
+          <div>
+            <h2 class="text-h4 font-weight-medium my-4">Getting started</h2>
+            <p class="my-2 text-body-1">
+              Are you the first time to use this app? Here are some steps you
+              want to follow.
+              <br />
+              For general information on our project, please take a look at our
+              <a href="http://shutosheep.github.io/pbl3-website"
+                >project website.</a
+              >
+              <br />
+              The image on the right is the icon of our app.
+            </p>
+          </div>
+          <v-img class="ml-8 mt-4" :max-width="150" src="/icon.png"></v-img>
+        </div>
         <h3 class="text-h5 font-weight-medium my-4">
           1. Select vending machine
         </h3>
