@@ -50,6 +50,12 @@
             value which you input.</b
           >
         </p>
+        <h3 class="text-h5 font-weight-medium my-4">4. Choose random menu</h3>
+        <p class="my-2 text-body-1">
+          You can choose random vending machine menu using the button.
+          <br />
+          Have fun with the roulette. :D
+        </p>
         <h2 class="text-h4 font-weight-medium my-4">
           Interested in developing?
         </h2>
@@ -59,8 +65,6 @@
           <br />
           This application uses Flask, Python for backend API server and Vue,
           Vuetify, Node.js for frontend.
-          <br />
-          Most of the coding is done by Shuto :D
         </p>
       </v-col>
     </v-row>

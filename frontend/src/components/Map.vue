@@ -38,30 +38,53 @@
         </l-marker>
       </l-map>
     </div>
-    <div class="ml-4">
+    <div>
       <div class="d-flex">
-        <div>
-          <h2 class="text-h4 my-5">Filter by...</h2>
-          <p>
-            <v-select
-              label="Filter type"
-              :items="filterTypeOptions"
-              v-model="filterType"
-              @change="changeFilterType($event)"
-            />
-          </p>
-          <p v-if="filterType != filterTypeOptions[2]">
-            <v-text-field label="Filter value" v-model="filterValue" />
-          </p>
-          <p class="d-flex">
-            <v-btn @click="clickFilter(filterType, filterValue)">
-              Filter
-            </v-btn>
-            <v-btn @click="clickResetFilter()">Clear filter</v-btn>
-          </p>
+        <div class="d-flex flex-column">
+          <div class="mx-3">
+            <h2 class="text-h4 my-5">Filter by...</h2>
+            <p>
+              <v-select
+                label="Filter type"
+                :items="filterTypeOptions"
+                v-model="filterType"
+                @change="changeFilterType($event)"
+              />
+            </p>
+            <p v-if="filterType != filterTypeOptions[2]">
+              <v-text-field label="Filter value" v-model="filterValue" />
+            </p>
+            <p class="d-flex">
+              <v-btn @click="clickFilter(filterType, filterValue)">
+                Filter
+              </v-btn>
+              <v-btn @click="clickResetFilter()">Clear filter</v-btn>
+            </p>
+          </div>
+          <div class="mx-3">
+            <h2 class="text-h4 my-5">Random select</h2>
+            <v-btn @click="clickRandom(allMenu)" class="my-1"
+              >Select random</v-btn
+            >
+            <br />
+            <v-btn @click="clickResetRandom()" class="my-1"
+              >Reset random selection</v-btn
+            >
+            <div
+              v-if="randomMenu"
+              class="text-body-1 my-2"
+              style="width: 200px"
+            >
+              Chosen
+              <br />
+              <span class="font-weight-medium">
+                {{ randomMenu }}
+              </span>
+            </div>
+          </div>
         </div>
         <VendingInfo
-          class="ml-4"
+          class="mx-3"
           :menu="menu"
           :filterType="filterType"
           :filterTypeOptions="filterTypeOptions"
@@ -100,12 +123,18 @@ export default {
         "Cacheless payment is avilable",
       ],
       filterValue: null,
+      allMenu: null,
+      randomMenu: null,
     };
   },
   mounted() {
     axios
       .get("http://127.0.0.1:5000/")
       .then((response) => (this.vendingmachine = response.data))
+      .catch((error) => console.log(error));
+    axios
+      .get("http://127.0.0.1:5000/allmenu")
+      .then((response) => (this.allMenu = response.data))
       .catch((error) => console.log(error));
   },
   methods: {
@@ -164,6 +193,29 @@ export default {
           .then((response) => (this.vendingmachine = response.data))
           .catch((error) => console.log(error));
       }
+    },
+    clickRandom(allMenu) {
+      const length = allMenu.length;
+      const i = Math.floor(Math.random() * length);
+      const randomMenu = allMenu[i];
+
+      axios
+        .get(
+          "http://127.0.0.1:5000/filter?filter_type=name" +
+            "&filter_value=" +
+            randomMenu,
+        )
+        .then((response) => (this.vendingmachine = response.data))
+        .catch((error) => console.log(error));
+      this.randomMenu = randomMenu;
+    },
+    clickResetRandom() {
+      axios
+        .get("http://127.0.0.1:5000/")
+        .then((response) => (this.vendingmachine = response.data))
+        .catch((error) => console.log(error));
+      this.menu = null;
+      this.randomMenu = null;
     },
   },
 };
