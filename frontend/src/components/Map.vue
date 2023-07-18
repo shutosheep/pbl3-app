@@ -23,6 +23,17 @@
             id = {{ i.id }}
             <br />
             {{ i.location }}
+            <br />
+            <a
+              v-bind:href="
+                'https://map.google.com/?q=' +
+                i.location[0] +
+                ',' +
+                i.location[1]
+              "
+            >
+              Open location in Google Map
+            </a>
           </l-popup>
         </l-marker>
       </l-map>
@@ -159,20 +170,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.flex {
-  display: flex;
-}
-
 .map {
   width: 1000px;
   height: 900px;
-}
-
-.gap-half {
-  gap: 0.5rem;
-}
-
-.gap-1 {
-  gap: 1rem;
 }
 </style>
