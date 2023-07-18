@@ -104,5 +104,15 @@ def get_filter():
 
     return jsonify(data)
 
+@app.route("/allmenu", methods=["GET"])
+def get_allmenu():
+    data = []
+
+    for i in m_df.index:
+        if not str(m_df.name[i]) in data:
+            data.append(m_df.name[i])
+
+    return jsonify(data)
+
 if __name__ == "__main__":
     app.run()
