@@ -15,7 +15,21 @@ git clone https://github.com/shutosheep/pbl3-app
 cd pbl3-app/
 ```
 
-### Setup frontend
+### Run application using Docker
+
+If you know docker you can start application with
+
+```
+docker-compose up
+```
+
+Access http://localhost:5173 and you should see the application.
+
+### Run application without Docker
+
+Below will explain how to setup without using docker.
+
+#### Setup frontend
 
 Make sure you have installed Node.js and `npm` command is avilable. \
 I recommend installing Node.js with [nvm](https://github.com/nvm-sh/nvm).
@@ -26,7 +40,7 @@ npm i
 cd ..
 ```
 
-### Setup backend
+#### Setup backend
 
 ```
 cd backend/
@@ -37,7 +51,7 @@ deactivate
 cd ..
 ```
 
-## Run the application
+#### Run the application
 
 Open 2 terminals and run these commands
 
@@ -51,3 +65,5 @@ cd backend/
 source env/bin/activate
 flask run
 ```
+
+Access http://localhost:5173 and you should see the application.
